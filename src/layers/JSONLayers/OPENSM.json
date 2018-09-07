@@ -1,0 +1,15 @@
+{
+    "type": "color",
+    "protocol": "wmtsc",
+    "networkOptions": { "crossOrigin" : "anonymous" },
+    "id": "OPENSM",
+    "customUrl": "http://a.basemaps.cartocdn.com/voyager/%TILEMATRIX/%COL/%ROW.png",
+    "options": {
+        "attribution": {
+            "name":"CARTO",
+            "url": "https://carto.com/"
+        },
+        "tileMatrixSet": "PM",
+        "mimetype": "image/png"
+    }
+}
