@@ -19,6 +19,7 @@ function subdivideNode(context, layer, node) {
 
         node.pendingSubdivision = true;
 
+        //获取当前节点的子节点
         const childrenTiles = layer.tileIndex.index[node.tileId].children;
         if (childrenTiles === undefined) {
             return;
@@ -213,5 +214,8 @@ export function $3dTilesSubdivisionControl(context, layer, node) {
     //计算当前节点的屏幕空间误差
     const sse = computeNodeSSE(context.camera, node);
     //大小比较
+    if(sse > layer.sseThreshold){
+        debugger
+    }
     return sse > layer.sseThreshold;
 }

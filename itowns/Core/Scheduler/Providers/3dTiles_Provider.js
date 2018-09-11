@@ -61,6 +61,8 @@ $3dTiles_Provider.prototype.preprocessDataLayer = function preprocessDataLayer(l
         const urlPrefix = layer.url.slice(0, layer.url.lastIndexOf('/') + 1);
         layer.tileIndex = new $3dTilesIndex(tileset, urlPrefix);
         layer.asset = tileset.asset;
+        //初始化3dTilesLayer，并加载根节点
+        debugger
         return init3dTilesLayer(view, scheduler, layer, tileset.root);
     });
 };
@@ -204,6 +206,7 @@ $3dTiles_Provider.prototype.executeCommand = function executeCommand(command) {
     const layer = command.layer;
     const metadata = command.metadata;
     const tile = new THREE.Object3D();
+    debugger
     configureTile(tile, layer, metadata, command.requester);
     const path = metadata.content ? metadata.content.url : undefined;
     const setLayer = (obj) => {

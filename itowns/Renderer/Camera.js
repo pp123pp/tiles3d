@@ -70,6 +70,7 @@ const tmp = {
 
 //判断当前包围盒是否可见
 Camera.prototype.isBox3Visible = function isBox3Visible(box3, matrixWorld) {
+    //debugger
     if (matrixWorld) {
         //获得该包围盒的世界矩阵
         tmp.matrix.multiplyMatrices(this._viewMatrix, matrixWorld);

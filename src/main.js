@@ -150,7 +150,7 @@ var globe = new itowns.GlobeView(viewerDiv, positionOnGlobe);
 //     return globe.addLayer(result)
 // });
 
-globe.addLayer(ortho)
+//globe.addLayer(ortho)
 
 // function use :
 // For preupdate Layer geomtry :
