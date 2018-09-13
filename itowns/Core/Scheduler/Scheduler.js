@@ -42,6 +42,12 @@ function _instanciateQueue() {
             if (!executingCounterUpToDate) {
                 this.counters.executing++;
             }
+            
+            /*if(cmd.layer.protocol =='3d-tiles'){
+                debugger
+            }*/
+            
+            console.log(cmd.layer.protocol)
 
             // If the provider returns a Promise, use it to handle counters
             // Otherwise use a resolved Promise.
@@ -73,6 +79,8 @@ function Scheduler() {
     this.providers = {};
 
     this.maxConcurrentCommands = 16;
+    
+    //每次请求的最大并发数
     this.maxCommandsPerHost = 6;
 
     // TODO: add an options to not instanciate default providers

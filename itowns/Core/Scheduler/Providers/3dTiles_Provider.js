@@ -15,6 +15,7 @@ function $3dTilesIndex(tileset, baseURL) {
     let counter = 0;
     this.index = {};
     const recurse = function recurse_f(node, baseURL) {
+        debugger
         //保存所有节点的数据
         this.index[counter] = node;
         node.tileId = counter;
@@ -63,6 +64,8 @@ $3dTiles_Provider.prototype.preprocessDataLayer = function preprocessDataLayer(l
         layer.asset = tileset.asset;
         //初始化3dTilesLayer，并加载根节点
         debugger
+        
+        console.log(layer)
         return init3dTilesLayer(view, scheduler, layer, tileset.root);
     });
 };
@@ -168,6 +171,7 @@ $3dTiles_Provider.prototype.pntsParse = function pntsParse(data) {
 };
 
 function configureTile(tile, layer, metadata, parent) {
+    
     tile.frustumCulled = false;
     tile.loaded = true;
     tile.layer = layer.id;
@@ -199,6 +203,8 @@ function configureTile(tile, layer, metadata, parent) {
     }
     //更新世界矩阵
     tile.updateMatrixWorld();
+    
+    console.log(tile.matrixWorld)
 }
 
 const textDecoder = new TextDecoder('utf-8');

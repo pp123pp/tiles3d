@@ -179,6 +179,14 @@ $3dTilesLayerDiscreteLOD.overrideMaterials = true;  // custom cesium shaders are
 $3dTilesLayerDiscreteLOD.type = 'geometry';
 $3dTilesLayerDiscreteLOD.visible = true;
 
+debugger
 itowns.View.prototype.addLayer.call(globe, $3dTilesLayerDiscreteLOD);
 
+globe._layers.splice(0, 1);
+
+globe.atmosphere.visible = false;
+
+//globe.wgs84TileLayer.visible = false
+
+//console.log(globe)
 

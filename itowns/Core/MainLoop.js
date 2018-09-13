@@ -70,6 +70,9 @@ MainLoop.prototype._update = function _update(view, updateSources, dt) {
         if (geometryLayer.ready) {
             // `preUpdate` returns an array of elements to update
             const elementsToUpdate = geometryLayer.preUpdate(context, geometryLayer, updateSources);
+            
+            
+            
             // `update` is called in `updateElements`.
             updateElements(context, geometryLayer, elementsToUpdate);
             // `postUpdate` is called when this geom layer update process is finished

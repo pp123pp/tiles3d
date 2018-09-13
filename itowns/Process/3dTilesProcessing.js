@@ -10,6 +10,7 @@ function requestNewTile(view, scheduler, geometryLayer, metadata, parent) {
         metadata,
         redraw: false,
     };
+    
 
     return scheduler.execute(command);
 }
@@ -37,6 +38,7 @@ function subdivideNode(context, layer, node) {
                 }));
         }
 
+        //Promise.all():用于将多个Promise对象包装成一个Promise对象，只有数组中的状态都成功或者有一个失败，就会调用all后面的回调函数
         Promise.all(promises).then(() => {
             node.pendingSubdivision = false;
             context.view.notifyChange(true);
@@ -97,8 +99,6 @@ f: 视点的视场角度（即相机的可视角度：fov）
 h: 屏幕像素的高
 r(i): 节点包围球投影在屏幕上的像素阈值
 k: 控制系数
-
-
  */
 export function pre3dTilesUpdate(context, layer) {
     // pre-sse
@@ -113,6 +113,10 @@ export function pre3dTilesUpdate(context, layer) {
     // const HFOV = 2.0 * Math.atan(Math.tan(radAngle * 0.5) / context.camera.ratio);
     const HYFOV = 2.0 * Math.atan(Math.tan(radAngle * 0.5) * hypotenuse / context.camera.width);
     context.camera.preSSE = hypotenuse * (2.0 * Math.tan(HYFOV * 0.5));
+    
+    //console.log(context.camera.preSSE)
+    
+    
     return [layer.root];
 }
 
@@ -120,6 +124,7 @@ export function pre3dTilesUpdate(context, layer) {
 
 //（根据不同的边界体）计算当前节点的屏幕空间误差
 function computeNodeSSE(camera, node) {
+    //console.log(node)
     if (node.boundingVolume.region) {
         const cameraLocalPosition = camera.camera3D.position.clone();
         cameraLocalPosition.x -= node.boundingVolume.region.matrixWorld.elements[12];
@@ -148,6 +153,7 @@ function computeNodeSSE(camera, node) {
 }
 
 export function init3dTilesLayer(view, scheduler, layer) {
+    debugger
     return requestNewTile(view, scheduler, layer, layer.tileset.root).then(
             (tile) => {
                 layer.object3d.add(tile);
@@ -175,13 +181,19 @@ export function process3dTilesNode(cullingTest, subdivisionTest) {
     return function _process3dTilesNodes(context, layer, node) {
         // early exit if parent's subdivision is in progress
 
+        //debugger
         if (node.parent.pendingSubdivision && !node.parent.additiveRefinement) {
             node.visible = false;
             return undefined;
         }
 
         // do proper culling
+        
+        //判断当前包围体，是否在视椎体内，如果相交或者在视椎体内，则结果为true
         const isVisible = cullingTest ? (!cullingTest(node, context.camera)) : true;
+        
+        //console.log(node)
+        
         node.visible = isVisible;
 
         let returnValue;
@@ -213,9 +225,14 @@ export function process3dTilesNode(cullingTest, subdivisionTest) {
 export function $3dTilesSubdivisionControl(context, layer, node) {
     //计算当前节点的屏幕空间误差
     const sse = computeNodeSSE(context.camera, node);
+    
+    //console.log(sse)
+    
     //大小比较
     if(sse > layer.sseThreshold){
-        debugger
+        //debugger
     }
+    
+    //console.log("aaa")
     return sse > layer.sseThreshold;
 }
